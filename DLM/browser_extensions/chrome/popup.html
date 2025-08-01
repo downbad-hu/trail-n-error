@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PyDownload Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 300px;
+      padding: 10px;
+      margin: 0;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .header img {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+    
+    .header h1 {
+      font-size: 16px;
+      margin: 0;
+    }
+    
+    .toggle-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    .section {
+      margin-bottom: 15px;
+    }
+    
+    .section h2 {
+      font-size: 14px;
+      margin: 0 0 5px 0;
+    }
+    
+    .form-group {
+      margin-bottom: 10px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+    
+    .file-types {
+      max-height: 100px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 5px;
+      margin-top: 5px;
+      font-size: 12px;
+    }
+    
+    .file-type {
+      display: inline-block;
+      background: #f0f0f0;
+      padding: 2px 5px;
+      margin: 2px;
+      border-radius: 3px;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 15px;
+    }
+    
+    .buttons button {
+      padding: 5px 10px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    
+    .status {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .status.connected {
+      color: green;
+    }
+    
+    .status.disconnected {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="icons/icon48.png" alt="PyDownload Manager">
+    <h1>PyDownload Manager</h1>
+  </div>
+  
+  <div class="toggle-container">
+    <span>Enable Download Interception</span>
+    <label class="toggle">
+      <input type="checkbox" id="enabled">
+      <span class="slider"></span>
+    </label>
+  </div>
+  
+  <div class="section">
+    <h2>Connection Settings</h2>
+    <div class="form-group">
+      <label for="serverUrl">Server URL</label>
+      <input type="text" id="serverUrl" placeholder="http://127.0.0.1:8765">
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Download Settings</h2>
+    <div class="form-group">
+      <label for="minSize">Minimum File Size (MB)</label>
+      <input type="number" id="minSize" min="0" step="0.1">
+    </div>
+    <div class="form-group">
+      <label>File Types</label>
+      <div class="file-types" id="fileTypes"></div>
+    </div>
+  </div>
+  
+  <div class="buttons">
+    <button id="reset">Reset</button>
+    <button id="save">Save</button>
+  </div>
+  
+  <div id="status" class="status">Checking connection...</div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
